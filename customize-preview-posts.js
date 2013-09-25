@@ -25,19 +25,19 @@ var CustomizePreviewPosts = (function ($) {
 		}
 
 		// Let each post have its own preview window
-		preview_btn.attr('target', 'wp-preview-' + $('#post_ID').val() )
+		preview_btn.attr('target', 'wp-preview-' + $('#post_ID').val() );
 
 		// @todo in the customizer, if they click Close it should self.close() and focus on opener
 
+		/**
+		 * Override global doPreview function
+		 * Copied from autosave.js, which fortunately lacks scoping doPreview in the closure
+		 * Replace hard-coded link target of 'wp-preview' with whatever is in the preview_btn's target (set above)
+		 * THIS IS A HACK! It will likely no longer work in 3.8 due to refactor in http://core.trac.wordpress.org/ticket/25272
+		 *
+		 */
 		if ( typeof window.doPreview !== 'undefined' ) {
-			var doPreviewBackup = window.doPreview;
-
-			/**
-			 * Override global doPreview function
-			 * Copied from autosave.js, which fortunately lacks scoping doPreview in the closure
-			 * Replace hard-coded link target of 'wp-preview' with whatever is in the preview_btn's target
-			 */
-			window.doPreview = function() {
+			window.doPreview = function () {
 				$('input#wp-preview').val('dopreview');
 				$('form#post').attr('target', preview_btn.attr('target')).submit().attr('target', '');
 
