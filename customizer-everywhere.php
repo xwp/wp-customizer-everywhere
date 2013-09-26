@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Customize Everywhere
- * Description: Preview button opens post/page in customizer, improves previewing experience; makes customize link more prominent on admin bar
+ * Plugin Name: Customizer Everywhere
+ * Description: Promote and enhance the use of customizer in more places; open post previews in the customizer and promote customize link to top of admin bar.
  * Version:     0.1
  * Author:      X-Team
  * Author URI:  http://x-team.com/wordpress/
  * License:     GPLv2+
- * Text Domain: customize-everywhere
+ * Text Domain: customizer-everywhere
  * Domain Path: /languages
  */
 
@@ -28,13 +28,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-# Moves Customize to top-level link in Admin Bar next to Edit
-# Publish & Save button should then publish the draft, as well as any customizer changes
-# Top of customizer should have a Back link to go back to post.php
-# Customize Close button should: if (window.opener){ window.opener.focus(); window.close(); }
-# Upon Publish & Save, it should trigger a window.opener.location.reload()? Or should it submit the post form?
-
-class Customize_Everywhere {
+class Customizer_Everywhere {
 
 	static $options = array();
 
@@ -141,18 +135,18 @@ class Customize_Everywhere {
 	 */
 	static function customize_preview_init() {
 		wp_enqueue_script(
-			'customize-everywhere-preview',
-			self::plugin_path_url( 'customize-preview.js' ),
+			'customizer-everywhere-preview',
+			self::plugin_path_url( 'preview.js' ),
 			array( 'jquery', 'customize-preview' ),
 			self::get_version(),
 			true
 		);
 		self::export_js(
-			'customize-everywhere-preview',
-			'CustomizeEverywherePreview_exports',
+			'customizer-everywhere-preview',
+			'CustomizerEverywherePreview_exports',
 			array(
 				'i18n' => array(
-					'parent_frame_document_title_tpl' => __( 'Customize: {title}', 'customize-everywhere' ),
+					'parent_frame_document_title_tpl' => __( 'Customize: {title}', 'customizer-everywhere' ),
 				),
 				'options' => self::$options,
 			)
@@ -169,7 +163,7 @@ class Customize_Everywhere {
 		}
 
 		wp_enqueue_script(
-			'customize-everywhere-edit-post',
+			'customizer-everywhere-edit-post',
 			self::plugin_path_url( 'edit-post.js' ),
 			array( 'jquery' ),
 			self::get_version(),
@@ -177,12 +171,12 @@ class Customize_Everywhere {
 		);
 
 		self::export_js(
-			'customize-everywhere-edit-post',
-			'CustomizeEverywhereEditPost_exports',
+			'customizer-everywhere-edit-post',
+			'CustomizerEverywhereEditPost_exports',
 			array(
 				'customize_url_tpl' => admin_url( 'customize.php?url={url}&return={return}' ),
 				'i18n' => array(
-					'preview_button_label' => __( 'Preview & Customize', 'customize-everywhere' ),
+					'preview_button_label' => __( 'Preview & Customize', 'customizer-everywhere' ),
 				),
 				'options' => self::$options,
 			)
@@ -194,15 +188,15 @@ class Customize_Everywhere {
 	 */
 	static function customize_controls_enqueue_scripts() {
 		wp_enqueue_script(
-			'customize-everywhere-controls',
+			'customizer-everywhere-controls',
 			self::plugin_path_url( 'controls.js' ),
 			array( 'jquery' ),
 			self::get_version(),
 			true
 		);
 		self::export_js(
-			'customize-everywhere-controls',
-			'CustomizeEverywhereControls_exports',
+			'customizer-everywhere-controls',
+			'CustomizerEverywhereControls_exports',
 			array(
 				'options' => self::$options,
 			)
@@ -219,9 +213,9 @@ class Customize_Everywhere {
 		if ( $customize_node ) {
 			$wp_admin_bar->remove_node( 'customize' );
 			$customize_node->parent = false;
-			$customize_node->meta['title'] = __( 'View current page in the customizer', 'customize-everywhere' );
+			$customize_node->meta['title'] = __( 'View current page in the customizer', 'customizer-everywhere' );
 			$wp_admin_bar->add_node( (array) $customize_node );
 		}
 	}
 }
-add_action( 'plugins_loaded', array( 'Customize_Everywhere', 'setup' ) );
+add_action( 'plugins_loaded', array( 'Customizer_Everywhere', 'setup' ) );

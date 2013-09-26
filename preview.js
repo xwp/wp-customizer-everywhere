@@ -1,5 +1,5 @@
-/*global jQuery, CustomizeEverywherePreview_exports */
-var CustomizeEverywherePreview = (function ($) {
+/*global jQuery, CustomizerEverywherePreview_exports */
+var CustomizerEverywherePreview = (function ($) {
 	'use strict';
 
 	var self = {
@@ -11,7 +11,7 @@ var CustomizeEverywherePreview = (function ($) {
 		}
 	};
 
-	$.extend(self, CustomizeEverywherePreview_exports);
+	$.extend(self, CustomizerEverywherePreview_exports);
 
 	self.init = function () {
 		if ( self.options.customizer_title_tracks_previewed_document ) {
@@ -20,7 +20,7 @@ var CustomizeEverywherePreview = (function ($) {
 	};
 
 	/**
-	 * It is not helpful to to see in browser tabs "Customize Twenty Twelve -- WordPress"
+	 * It is not helpful to see in browser tabs "Customize Twenty Twelve -- WordPress"
 	 * This assumes the primary purpose of the customizer is to preview themes, when in reality
 	 * it seems the primary purpose is to customize your already-selected theme. In this latter
 	 * case, it makes much more sense for the title to reflect the page currently being previewed.

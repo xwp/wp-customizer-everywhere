@@ -1,5 +1,5 @@
-/*global jQuery, CustomizeEverywhereControls_exports */
-var CustomizeEverywhereControls = (function ($) {
+/*global jQuery, CustomizerEverywhereControls_exports */
+var CustomizerEverywhereControls = (function ($) {
 	'use strict';
 
 	var self = {
@@ -8,7 +8,7 @@ var CustomizeEverywhereControls = (function ($) {
 		}
 	};
 
-	$.extend(self, CustomizeEverywhereControls_exports);
+	$.extend(self, CustomizerEverywhereControls_exports);
 
 	self.init = function () {
 		if ( self.options.back_button_closes_customizer_preview_window ) {
@@ -37,6 +37,7 @@ var CustomizeEverywhereControls = (function ($) {
 				window.close();
 				e.preventDefault();
 			}
+			// @todo else history.back()?
 		});
 	};
 

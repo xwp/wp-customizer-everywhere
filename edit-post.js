@@ -1,5 +1,5 @@
-/*global jQuery, CustomizeEverywhereEditPost_exports, doPreview */
-var CustomizeEverywhereEditPost = (function ($) {
+/*global jQuery, CustomizerEverywhereEditPost_exports, doPreview */
+var CustomizerEverywhereEditPost = (function ($) {
 	'use strict';
 
 	var self = {
@@ -10,7 +10,7 @@ var CustomizeEverywhereEditPost = (function ($) {
 		options: {}
 	};
 
-	$.extend(self, CustomizeEverywhereEditPost_exports);
+	$.extend(self, CustomizerEverywhereEditPost_exports);
 
 	self.init = function () {
 		self.setPreviewLinkText();
