@@ -5,13 +5,18 @@ var CustomizeEverywherePreview = (function ($) {
 	var self = {
 		i18n: {
 			parent_frame_document_title_tpl: null
+		},
+		options: {
+			customizer_title_tracks_previewed_document: true
 		}
 	};
 
 	$.extend(self, CustomizeEverywherePreview_exports);
 
 	self.init = function () {
-		self.setParentWindowTitle();
+		if ( self.options.customizer_title_tracks_previewed_document ) {
+			self.setParentWindowTitle();
+		}
 	};
 
 	/**

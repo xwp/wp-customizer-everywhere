@@ -6,7 +6,8 @@ var CustomizeEverywhereEditPost = (function ($) {
 		customize_url_tpl: null,
 		i18n: {
 			preview_button_label: null
-		}
+		},
+		options: {}
 	};
 
 	$.extend(self, CustomizeEverywhereEditPost_exports);

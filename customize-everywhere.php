@@ -45,6 +45,8 @@ class Customize_Everywhere {
 		self::$options = array(
 			'admin_bar_move_customize_following_edit' => true,
 			'admin_bar_customize_node_priority' => 81,  // edit post is priority 80
+			'back_button_closes_customizer_preview_window' => true,
+			'customizer_title_tracks_previewed_document' => true,
 		);
 		self::$options = apply_filters( 'customize_everything_options', self::$options );
 
@@ -52,6 +54,7 @@ class Customize_Everywhere {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 			add_filter( 'preview_post_link', array( __CLASS__, 'add_preview_link_to_customize_url' ) );
 			add_action( 'customize_preview_init', array( __CLASS__, 'customize_preview_init' ) );
+			add_action( 'customize_controls_enqueue_scripts', array( __CLASS__, 'customize_controls_enqueue_scripts' ) );
 
 			if ( self::$options['admin_bar_move_customize_following_edit'] ) {
 				add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_menu' ), self::$options['admin_bar_customize_node_priority'] );
@@ -116,6 +119,24 @@ class Customize_Everywhere {
 	}
 
 	/**
+	 * Route all preview links through the customizer
+	 * @param string $url
+	 * @filter preview_post_link
+	 * @return string
+	 */
+	static function add_preview_link_to_customize_url( $url ) {
+		if ( basename( parse_url( $url, PHP_URL_PATH ) ) !== 'customize.php' ) {
+			$args = array();
+			$args['url'] = urlencode( $url );
+			if ( 'post' === get_current_screen()->base ) {
+				$args['return'] = urlencode( get_edit_post_link( get_post()->ID, 'raw' ) ); // shouldn't have to urlencode() here
+			}
+			$url = add_query_arg( $args, admin_url( 'customize.php' ) );
+		}
+		return $url;
+	}
+
+	/**
 	 * @action customize_preview_init
 	 */
 	static function customize_preview_init() {
@@ -136,24 +157,6 @@ class Customize_Everywhere {
 				'options' => self::$options,
 			)
 		);
-	}
-
-	/**
-	 * Route all preview links through the customizer
-	 * @param string $url
-	 * @filter preview_post_link
-	 * @return string
-	 */
-	static function add_preview_link_to_customize_url( $url ) {
-		if ( basename( parse_url( $url, PHP_URL_PATH ) ) !== 'customize.php' ) {
-			$args = array();
-			$args['url'] = urlencode( $url );
-			if ( 'post' === get_current_screen()->base ) {
-				$args['return'] = urlencode( get_edit_post_link( get_post()->ID, 'raw' ) ); // shouldn't have to urlencode() here
-			}
-			$url = add_query_arg( $args, admin_url( 'customize.php' ) );
-		}
-		return $url;
 	}
 
 	/**
@@ -181,6 +184,26 @@ class Customize_Everywhere {
 				'i18n' => array(
 					'preview_button_label' => __( 'Preview & Customize', 'customize-everywhere' ),
 				),
+				'options' => self::$options,
+			)
+		);
+	}
+
+	/**
+	 * @action customize_controls_enqueue_scripts
+	 */
+	static function customize_controls_enqueue_scripts() {
+		wp_enqueue_script(
+			'customize-everywhere-controls',
+			self::plugin_path_url( 'controls.js' ),
+			array( 'jquery' ),
+			self::get_version(),
+			true
+		);
+		self::export_js(
+			'customize-everywhere-controls',
+			'CustomizeEverywhereControls_exports',
+			array(
 				'options' => self::$options,
 			)
 		);
