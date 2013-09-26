@@ -32,7 +32,6 @@
 # Publish & Save button should then publish the draft, as well as any customizer changes
 # Top of customizer should have a Back link to go back to post.php
 # Customize Close button should: if (window.opener){ window.opener.focus(); window.close(); }
-# Always have Preview link open in a new window with a unique name
 # Upon Publish & Save, it should trigger a window.opener.location.reload()? Or should it submit the post form?
 # Change parent.document.title when changing pages
 
@@ -51,7 +50,7 @@ class Customize_Everywhere {
 		self::$options = apply_filters( 'customize_everything_options', self::$options );
 
 		if ( self::current_user_can() ) {
-			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_script' ) );
+			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 			add_filter( 'preview_post_link', array( __CLASS__, 'add_preview_link_to_customize_url' ) );
 
 			if ( self::$options['admin_bar_move_customize_following_edit'] ) {
@@ -94,6 +93,21 @@ class Customize_Everywhere {
 	}
 
 	/**
+	 * wp_localize_script turns its data into an array of strings
+	 * @param string $handle
+	 * @param string $var
+	 * @param mixed $data
+	 */
+	static function export_js( $handle, $var, $data ) {
+		global $wp_scripts;
+		$wp_scripts->add_data(
+			$handle,
+			'data',
+			sprintf( 'var %s = %s;', $var, json_encode( $data ) )
+		);
+	}
+
+	/**
 	 * Helper function to see if a user can use this functionality
 	 * @return bool
 	 */
@@ -122,7 +136,7 @@ class Customize_Everywhere {
 	 * @param $page_hook
 	 * @action admin_enqueue_scripts
 	 */
-	static function enqueue_script( $page_hook ) {
+	static function admin_enqueue_scripts( $page_hook ) {
 		if ( ! in_array( $page_hook, array( 'post.php', 'post-new.php' ) ) ) {
 			return;
 		}
@@ -135,18 +149,16 @@ class Customize_Everywhere {
 			true
 		);
 
-		global $wp_scripts;
-		$exports = array(
-			'customize_url_tpl' => admin_url( 'customize.php?url={url}&return={return}' ),
-			'i18n' => array(
-				'preview_button_label' => __( 'Preview & Customize', 'customize-everywhere' ),
-			),
-			'options' => self::$options,
-		);
-		$wp_scripts->add_data(
+		self::export_js(
 			'customize-everywhere-edit-post',
-			'data',
-			sprintf( 'var CustomizeEverywhereEditPost_exports = %s;', json_encode($exports) )
+			'CustomizeEverywhereEditPost_exports',
+			array(
+				'customize_url_tpl' => admin_url( 'customize.php?url={url}&return={return}' ),
+				'i18n' => array(
+					'preview_button_label' => __( 'Preview & Customize', 'customize-everywhere' ),
+				),
+				'options' => self::$options,
+			)
 		);
 	}
 
