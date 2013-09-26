@@ -1,4 +1,4 @@
-/*global jQuery, CustomizeEverywherePreview_exports, doPreview */
+/*global jQuery, CustomizeEverywherePreview_exports */
 var CustomizeEverywherePreview = (function ($) {
 	'use strict';
 

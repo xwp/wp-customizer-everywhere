@@ -26,7 +26,7 @@ var CustomizeEverywhereEditPost = (function ($) {
 	};
 
 	/**
-	 * # Always have Preview link open in a new window with a unique name
+	 * Always have Preview link open in a window dedicated to that post
 	 */
 	self.setPreviewLinkTarget = function () {
 		$('#post-preview').attr('target', 'wp-preview-' + $('#post_ID').val() );

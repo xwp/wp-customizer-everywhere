@@ -146,7 +146,8 @@ class Customize_Everywhere {
 	 */
 	static function add_preview_link_to_customize_url( $url ) {
 		if ( basename( parse_url( $url, PHP_URL_PATH ) ) !== 'customize.php' ) {
-			$args = compact( 'url' );
+			$args = array();
+			$args['url'] = urlencode( $url );
 			if ( 'post' === get_current_screen()->base ) {
 				$args['return'] = urlencode( get_edit_post_link( get_post()->ID, 'raw' ) ); // shouldn't have to urlencode() here
 			}
