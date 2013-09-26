@@ -1,5 +1,5 @@
-/*global jQuery, CustomizePreviewPosts_exports, doPreview */
-var CustomizePreviewPosts = (function ($) {
+/*global jQuery, CustomizeEverywhereEditPost_exports, doPreview */
+var CustomizeEverywhereEditPost = (function ($) {
 	'use strict';
 
 	var self = {
@@ -9,7 +9,7 @@ var CustomizePreviewPosts = (function ($) {
 		}
 	};
 
-	$.extend(self, CustomizePreviewPosts_exports);
+	$.extend(self, CustomizeEverywhereEditPost_exports);
 
 	self.init = function () {
 		var preview_url, preview_btn;
@@ -34,7 +34,7 @@ var CustomizePreviewPosts = (function ($) {
 		 * Copied from autosave.js, which fortunately lacks scoping doPreview in the closure
 		 * Replace hard-coded link target of 'wp-preview' with whatever is in the preview_btn's target (set above)
 		 * THIS IS A HACK! It will likely no longer work in 3.8 due to refactor in http://core.trac.wordpress.org/ticket/25272
-		 *
+		 * Requested patch in http://core.trac.wordpress.org/ticket/25272#comment:7
 		 */
 		if ( typeof window.doPreview !== 'undefined' ) {
 			window.doPreview = function () {

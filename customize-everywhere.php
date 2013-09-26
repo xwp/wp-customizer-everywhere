@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Preview in Customizer
- * Description: Turn Preview button into link to Customizer opened to the currently-edited post or page.
+ * Plugin Name: Customize Everywhere
+ * Description: Preview button opens post/page in customizer, improves previewing experience; makes customize link more prominent on admin bar
  * Version:     0.1
  * Author:      X-Team
  * Author URI:  http://x-team.com/wordpress/
  * License:     GPLv2+
- * Text Domain: customize-preview-posts
+ * Text Domain: customize-everywhere
  * Domain Path: /languages
  */
 
@@ -28,7 +28,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-# ONLY IF current_user_can() edit theme options!
 # Moves Customize to top-level link in Admin Bar next to Edit
 # Publish & Save button should then publish the draft, as well as any customizer changes
 # Top of customizer should have a Back link to go back to post.php
@@ -37,16 +36,27 @@
 # Upon Publish & Save, it should trigger a window.opener.location.reload()? Or should it submit the post form?
 # Change parent.document.title when changing pages
 
-class Customize_Preview_Posts {
+class Customize_Everywhere {
+
+	static $options = array();
 
 	/**
 	 * Plugin boot-up
 	 */
 	static function setup() {
+		self::$options = array(
+			'admin_bar_move_customize_following_edit' => true,
+			'admin_bar_customize_node_priority' => 81,  // edit post is priority 80
+		);
+		self::$options = apply_filters( 'customize_everything_options', self::$options );
+
 		if ( self::current_user_can() ) {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_script' ) );
 			add_filter( 'preview_post_link', array( __CLASS__, 'add_preview_link_to_customize_url' ) );
-			add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_menu' ), 81 ); // edit post is priority 80
+
+			if ( self::$options['admin_bar_move_customize_following_edit'] ) {
+				add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_menu' ), self::$options['admin_bar_customize_node_priority'] );
+			}
 		}
 	}
 
@@ -118,8 +128,8 @@ class Customize_Preview_Posts {
 		}
 
 		wp_enqueue_script(
-			'customize-preview-changes',
-			self::plugin_path_url( 'customize-preview-posts.js' ),
+			'customize-everywhere-edit-post',
+			self::plugin_path_url( 'edit-post.js' ),
 			array( 'jquery' ),
 			self::get_version(),
 			true
@@ -129,13 +139,14 @@ class Customize_Preview_Posts {
 		$exports = array(
 			'customize_url_tpl' => admin_url( 'customize.php?url={url}&return={return}' ),
 			'i18n' => array(
-				'preview_button_label' => __( 'Preview & Customize', 'customize-preview-posts' ),
+				'preview_button_label' => __( 'Preview & Customize', 'customize-everywhere' ),
 			),
+			'options' => self::$options,
 		);
 		$wp_scripts->add_data(
-			'customize-preview-changes',
+			'customize-everywhere-edit-post',
 			'data',
-			sprintf( 'var CustomizePreviewPosts_exports = %s;', json_encode($exports) )
+			sprintf( 'var CustomizeEverywhereEditPost_exports = %s;', json_encode($exports) )
 		);
 	}
 
@@ -145,17 +156,13 @@ class Customize_Preview_Posts {
 	 * @action admin_bar_menu
 	 */
 	static function admin_bar_menu( $wp_admin_bar ) {
-		if ( ! apply_filters( 'admin_bar_move_customize_following_edit', true ) ) {
-			return;
-		}
-
 		$customize_node = $wp_admin_bar->get_node( 'customize' );
 		if ( $customize_node ) {
 			$wp_admin_bar->remove_node( 'customize' );
 			$customize_node->parent = false;
-			$customize_node->meta['title'] = __( 'View current page in the customizer', 'customize-preview-posts' );
+			$customize_node->meta['title'] = __( 'View current page in the customizer', 'customize-everywhere' );
 			$wp_admin_bar->add_node( (array) $customize_node );
 		}
 	}
 }
-add_action( 'plugins_loaded', array( 'Customize_Preview_Posts', 'setup' ) );
+add_action( 'plugins_loaded', array( 'Customize_Everywhere', 'setup' ) );
