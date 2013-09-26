@@ -33,7 +33,6 @@
 # Top of customizer should have a Back link to go back to post.php
 # Customize Close button should: if (window.opener){ window.opener.focus(); window.close(); }
 # Upon Publish & Save, it should trigger a window.opener.location.reload()? Or should it submit the post form?
-# Change parent.document.title when changing pages
 
 class Customize_Everywhere {
 
@@ -52,6 +51,7 @@ class Customize_Everywhere {
 		if ( self::current_user_can() ) {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 			add_filter( 'preview_post_link', array( __CLASS__, 'add_preview_link_to_customize_url' ) );
+			add_action( 'customize_preview_init', array( __CLASS__, 'customize_preview_init' ) );
 
 			if ( self::$options['admin_bar_move_customize_following_edit'] ) {
 				add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_menu' ), self::$options['admin_bar_customize_node_priority'] );
@@ -113,6 +113,29 @@ class Customize_Everywhere {
 	 */
 	static function current_user_can() {
 		return current_user_can( 'edit_theme_options' ); // cap is hard-coded in customize.php
+	}
+
+	/**
+	 * @action customize_preview_init
+	 */
+	static function customize_preview_init() {
+		wp_enqueue_script(
+			'customize-everywhere-preview',
+			self::plugin_path_url( 'customize-preview.js' ),
+			array( 'jquery', 'customize-preview' ),
+			self::get_version(),
+			true
+		);
+		self::export_js(
+			'customize-everywhere-preview',
+			'CustomizeEverywherePreview_exports',
+			array(
+				'i18n' => array(
+					'parent_frame_document_title_tpl' => __( 'Customize: {title}', 'customize-everywhere' ),
+				),
+				'options' => self::$options,
+			)
+		);
 	}
 
 	/**
