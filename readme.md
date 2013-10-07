@@ -41,6 +41,8 @@ or outside—to a page that has the element which a control customizes.
 
 **Development of this plugin is done [on GitHub](https://github.com/x-team/wp-customizer-everywhere). Pull requests welcome. Please see [issues](https://github.com/x-team/wp-customizer-everywhere/issues) reported there before going to the plugin forum.**
 
+[![Build Status](https://travis-ci.org/x-team/wp-customizer-everywhere.png)](https://travis-ci.org/x-team/wp-customizer-everywhere)
+
 ## Screenshots ##
 
 ### The “Preview” button is replaced with a “Preview & Customize” button
