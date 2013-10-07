@@ -65,7 +65,7 @@ var CustomizerEverywhereEditPost = (function ($) {
 				 * https://bugs.webkit.org/show_bug.cgi?id=28633
 				 */
 				var ua = navigator.userAgent.toLowerCase();
-				if ( ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1 ) {
+				if ( ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1 ) {
 					$('form#post').attr('action', function(index, value) {
 						return value + '?t=' + new Date().getTime();
 					});
