@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Customizer Everywhere
  * Description: Promote and enhance the use of customizer in more places; open post previews in the customizer and promote customize link to top of admin bar.
- * Version:     0.1
+ * Version:     0.1.1
  * Author:      X-Team
  * Author URI:  http://x-team.com/wordpress/
  * License:     GPLv2+

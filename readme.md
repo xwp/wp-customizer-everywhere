@@ -59,6 +59,9 @@ or outside—to a page that has the element which a control customizes.
 
 ## Changelog ##
 
+### 0.1.1 ###
+Add Travis CI integration and pre-commit with various tests
+
 ### 0.1 ###
 First Release
 
