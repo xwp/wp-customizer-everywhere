@@ -2,7 +2,7 @@
 Contributors:      X-team, westonruter
 Tags:              customizer, preview, widget-customizer, admin-bar
 Requires at least: 3.6
-Tested up to:      3.7
+Tested up to:      3.8
 Stable tag:        trunk
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,6 +46,9 @@ or outside—to a page that has the element which a control customizes.
 3. Close button in customizer actually closes window, returning focus to opening window. Browser tab includes title from page currently being previewed.
 
 == Changelog ==
+
+= 0.1.2 =
+Improve logic for filtering preview_post_link
 
 = 0.1.1 =
 Add Travis CI integration and pre-commit with various tests

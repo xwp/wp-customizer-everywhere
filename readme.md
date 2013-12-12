@@ -7,7 +7,7 @@ Promote and enhance the use of customizer in more places; open post previews in 
 **Contributors:** [x-team](http://profiles.wordpress.org/x-team), [westonruter](http://profiles.wordpress.org/westonruter)  
 **Tags:** [customizer](http://wordpress.org/plugins/tags/customizer), [preview](http://wordpress.org/plugins/tags/preview), [widget-customizer](http://wordpress.org/plugins/tags/widget-customizer), [admin-bar](http://wordpress.org/plugins/tags/admin-bar)  
 **Requires at least:** 3.6  
-**Tested up to:** 3.7  
+**Tested up to:** 3.8  
 **Stable tag:** trunk (master)  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
 
@@ -58,6 +58,9 @@ or outside—to a page that has the element which a control customizes.
 ![Close button in customizer actually closes window, returning focus to opening window. Browser tab includes title from page currently being previewed.](assets/screenshot-3.png)
 
 ## Changelog ##
+
+### 0.1.2 ###
+Improve logic for filtering preview_post_link
 
 ### 0.1.1 ###
 Add Travis CI integration and pre-commit with various tests

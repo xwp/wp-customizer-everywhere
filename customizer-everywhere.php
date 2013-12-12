@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Customizer Everywhere
  * Description: Promote and enhance the use of customizer in more places; open post previews in the customizer and promote customize link to top of admin bar.
- * Version:     0.1.1
+ * Version:     0.1.2
  * Author:      X-Team
  * Author URI:  http://x-team.com/wordpress/
  * License:     GPLv2+
@@ -120,12 +120,13 @@ class Customizer_Everywhere {
 	 */
 	static function add_preview_link_to_customize_url( $url ) {
 		if ( basename( parse_url( $url, PHP_URL_PATH ) ) !== 'customize.php' ) {
+
 			$args = array();
-			$args['url'] = urlencode( $url );
+			$args['url'] = $url;
 			if ( 'post' === get_current_screen()->base ) {
-				$args['return'] = urlencode( get_edit_post_link( get_post()->ID, 'raw' ) ); // shouldn't have to urlencode() here
+				$args['return'] = get_edit_post_link( get_post()->ID, 'raw' );
 			}
-			$url = add_query_arg( $args, admin_url( 'customize.php' ) );
+			$url = admin_url( 'customize.php' ) . '?' . http_build_query( $args );
 		}
 		return $url;
 	}
