@@ -1,5 +1,5 @@
 === Customizer Everywhere ===
-Contributors:      X-team, westonruter
+Contributors:      xwp, westonruter
 Tags:              customizer, preview, widget-customizer, admin-bar
 Requires at least: 3.6
 Tested up to:      3.8
@@ -37,7 +37,7 @@ control sections in the customizer based on whether or not that sidebar is curre
 preview. Therefore, for some customizer controls to be accessed, the user must navigate—either within the customizer
 or outside—to a page that has the element which a control customizes.
 
-**Development of this plugin is done [on GitHub](https://github.com/x-team/wp-customizer-everywhere). Pull requests welcome. Please see [issues](https://github.com/x-team/wp-customizer-everywhere/issues) reported there before going to the plugin forum.**
+**Development of this plugin is done [on GitHub](https://github.com/xwp/wp-customizer-everywhere). Pull requests welcome. Please see [issues](https://github.com/xwp/wp-customizer-everywhere/issues) reported there before going to the plugin forum.**
 
 == Screenshots ==
 

@@ -4,12 +4,14 @@
 ![Banner](assets/banner-1544x500.png)
 Promote and enhance the use of customizer in more places; open post previews in the customizer and promote customize link to top of admin bar.
 
-**Contributors:** [x-team](http://profiles.wordpress.org/x-team), [westonruter](http://profiles.wordpress.org/westonruter)  
+**Contributors:** [xwp](http://profiles.wordpress.org/xwp), [westonruter](http://profiles.wordpress.org/westonruter)  
 **Tags:** [customizer](http://wordpress.org/plugins/tags/customizer), [preview](http://wordpress.org/plugins/tags/preview), [widget-customizer](http://wordpress.org/plugins/tags/widget-customizer), [admin-bar](http://wordpress.org/plugins/tags/admin-bar)  
 **Requires at least:** 3.6  
 **Tested up to:** 3.8  
 **Stable tag:** trunk (master)  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
+
+[![Build Status](https://travis-ci.org/xwp/wp-customizer-everywhere.png?branch=master)](https://travis-ci.org/xwp/wp-customizer-everywhere) 
 
 ## Description ##
 
@@ -39,9 +41,7 @@ control sections in the customizer based on whether or not that sidebar is curre
 preview. Therefore, for some customizer controls to be accessed, the user must navigate—either within the customizer
 or outside—to a page that has the element which a control customizes.
 
-**Development of this plugin is done [on GitHub](https://github.com/x-team/wp-customizer-everywhere). Pull requests welcome. Please see [issues](https://github.com/x-team/wp-customizer-everywhere/issues) reported there before going to the plugin forum.**
-
-[![Build Status](https://travis-ci.org/x-team/wp-customizer-everywhere.png?branch=master)](https://travis-ci.org/x-team/wp-customizer-everywhere)
+**Development of this plugin is done [on GitHub](https://github.com/xwp/wp-customizer-everywhere). Pull requests welcome. Please see [issues](https://github.com/xwp/wp-customizer-everywhere/issues) reported there before going to the plugin forum.**
 
 ## Screenshots ##
 
