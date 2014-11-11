@@ -3,15 +3,15 @@
  * Plugin Name: Customizer Everywhere
  * Description: Promote and enhance the use of customizer in more places; open post previews in the customizer and promote customize link to top of admin bar.
  * Version:     0.1.2
- * Author:      X-Team
- * Author URI:  http://x-team.com/wordpress/
+ * Author:      XWP
+ * Author URI:  https://xwp.co/
  * License:     GPLv2+
  * Text Domain: customizer-everywhere
  * Domain Path: /languages
  */
 
 /**
- * Copyright (c) 2013 X-Team (http://x-team.com/)
+ * Copyright (c) 2013 XWP (https://xwp.co/)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at
