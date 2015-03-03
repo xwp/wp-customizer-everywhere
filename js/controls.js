@@ -1,4 +1,5 @@
 /*global jQuery, CustomizerEverywhereControls_exports */
+/*exported CustomizerEverywhereControls */
 var CustomizerEverywhereControls = (function ($) {
 	'use strict';
 
@@ -8,7 +9,7 @@ var CustomizerEverywhereControls = (function ($) {
 		}
 	};
 
-	$.extend(self, CustomizerEverywhereControls_exports);
+	$.extend( self, CustomizerEverywhereControls_exports );
 
 	self.init = function () {
 		if ( self.options.back_button_closes_customizer_preview_window ) {
@@ -25,14 +26,14 @@ var CustomizerEverywhereControls = (function ($) {
 	 * customizer preview. This adds a nice close button to clean up after doing a preview.
 	 */
 	self.letBackButtonCloseWindow = function () {
-		var original_opener_url;
+		var originalOpenerUrl;
 		if ( ! window.opener ) {
 			return;
 		}
-		original_opener_url = window.opener.location.href;
+		originalOpenerUrl = window.opener.location.href;
 
-		$( '.back.button').on('click', function (e) {
-			if ( window.opener && window.opener.location.href === original_opener_url ) {
+		$( '.customize-controls-close' ).on( 'click', function ( e ) {
+			if ( window.opener && window.opener.location.href === originalOpenerUrl ) {
 				window.opener.focus();
 				window.close();
 				e.preventDefault();
