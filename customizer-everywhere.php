@@ -63,7 +63,7 @@ class Customizer_Everywhere {
 	static function get_plugin_meta( $key = null ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		$data = get_plugin_data( __FILE__ );
-		return is_null( $key ) ? $data : $data[$key];
+		return is_null( $key ) ? $data : $data[ $key ];
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Customizer_Everywhere {
 		$wp_scripts->add_data(
 			$handle,
 			'data',
-			sprintf( 'var %s = %s;', $var, json_encode( $data ) )
+			sprintf( 'var %s = %s;', $var, wp_json_encode( $data ) )
 		);
 	}
 
@@ -119,7 +119,7 @@ class Customizer_Everywhere {
 	 * @return string
 	 */
 	static function add_preview_link_to_customize_url( $url ) {
-		if ( basename( parse_url( $url, PHP_URL_PATH ) ) !== 'customize.php' ) {
+		if ( 'customize.php' !== basename( parse_url( $url, PHP_URL_PATH ) ) ) {
 
 			$args = array();
 			$args['url'] = $url;
